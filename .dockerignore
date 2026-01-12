@@ -1,0 +1,61 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+.eggs
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Tests
+tests/
+test/
+*_test.py
+test_*.py
+pytest.ini
+.pytest_cache
+.coverage
+htmlcov/
+coverage.xml
+
+# Documentation
+*.md
+docs/
+
+# GitHub
+.github/
+
+# Build artifacts
+build/
+dist/
+*.whl
+
+# Local development
+.secrets.baseline
+.pre-commit-config.yaml
+docker-compose*.yml
+Dockerfile*
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
