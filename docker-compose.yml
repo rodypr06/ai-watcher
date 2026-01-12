@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  ai-watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-watcher
+    restart: unless-stopped
+
+    # Environment variables from .env file
+    env_file:
+      - .env
+
+    # Additional environment variables (override if needed)
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=UTC
+
+    # Volume for persistent output
+    volumes:
+      - ./ai-intel:/app/ai-intel
+      - ./ai-intel.db:/app/ai-intel.db
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp
+
+networks:
+  default:
+    name: ai-watcher-network
